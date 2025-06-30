@@ -43,7 +43,9 @@ A solução é composta pelos seguintes componentes principais:
 5. **Memória de Conversação**  
    Mantém contexto das perguntas anteriores para consultas encadeadas.
 
-*Um diagrama de fluxo detalhado está disponível no arquivo `Arquitetura.pdf` no repositório.*
+*Um diagrama de fluxo detalhado está disponível no arquivo `Arquitetura.png` no repositório.* <p>
+Arquitetura foi esquematizada com base em um curso da Alura e modificada para que envolvesse a memória das interações anteriores.
+
 
 ---
 
