@@ -43,9 +43,6 @@ A solução é composta pelos seguintes componentes principais:
 5. **Memória de Conversação**  
    Mantém contexto das perguntas anteriores para consultas encadeadas.
 
-*Um diagrama de fluxo detalhado está disponível no arquivo `Arquitetura.png` no repositório.* <p>
-Arquitetura foi esquematizada com base em um curso da Alura e modificada para que envolvesse a memória das interações anteriores.
-
 
 ---
 
@@ -58,6 +55,24 @@ Arquitetura foi esquematizada com base em um curso da Alura e modificada para qu
 
 ```bash
 pip install -r requirements.txt
+```
+
+## Esquematização da LLM
+
+O esquema da LLM foi elaborado com base em um curso prévio na Alura, introduzindo o conceito de memória. Um esboço inicial se encontra em `Arquitetura.png`.
+
+O pipeline principal do modelo é:
+```
+qp.add_chain(['entrada', 'memory', 'acesso_tabela', 'contexto_tabela'])
+qp.add_link('memory', 'prompt_1', dest_key='conversation_history')
+qp.add_link('memory', 'prompt_2', dest_key='conversation_history')
+qp.add_link('entrada', 'prompt_1', dest_key='pergunta_user')
+qp.add_link('contexto_tabela', 'prompt_1', dest_key='schema')
+qp.add_chain(['prompt_1', 'llm_1', 'consulta_sql', 'resultado_sql'])
+qp.add_link('entrada', 'prompt_2', dest_key='pergunta_user')
+qp.add_link('consulta_sql', 'prompt_2', dest_key='consulta')
+qp.add_link('resultado_sql', 'prompt_2', dest_key='resultado')
+qp.add_link('prompt_2', 'llm_2')
 ```
 
 ## Limitações e Sugestões de Melhoria
